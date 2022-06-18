@@ -1,0 +1,133 @@
+### GET CARPARKS
+GET http://localhost:8080/carparks
+Accept: application/json
+
+### GET CARPARK BY ID
+GET http://localhost:8080/carparks/4
+Accept: application/json
+
+### POST CARPARK
+POST http://localhost:8080/carparks
+Content-Type: application/json
+Accept: application/json
+
+{
+  "name": "lkk",
+  "address": "Niekde inde",
+  "prices": "6"
+}
+
+### DELETE CARPARK
+DELETE http://localhost:8080/carparks/1
+
+
+
+
+
+### GET FLOORS
+GET http://localhost:8080/carparks/6/floors
+Accept: application/json
+
+### GET FLOOR BY IDENTIFIER  -- PRECO NEJDES
+GET http://localhost:8080/carparks/1/floors/1F
+Accept: application/json
+
+### POST FLOOR
+POST http://localhost:8080/carparks/1/floors
+Content-Type: application/json
+Accept: application/json
+
+{
+  "identifier": "NovePoschodie"
+}
+
+### DELETE FLOOR
+DELETE http://localhost:8080/carparks/1/floors/NovePoschodie
+
+
+
+
+
+
+### GET PARKING SPOTS
+GET http://localhost:8080/carparks/1/floors/1F/spots
+Accept: application/json
+
+### GET PARKING SPOT BY ID
+GET http://localhost:8080/parkingspots/1
+Accept: application/json
+
+### POST PARKING SPOT
+POST http://localhost:8080/carparks/1/floors/1F/spots
+Content-Type: application/json
+Accept: application/json
+
+{
+  "identifier": "54115",
+  "type": 2
+}
+
+### DELETE PARKING SPOT
+DELETE http://localhost:8080/parkingspots/2
+Accept: application/json
+
+
+
+
+
+
+
+### POST USER
+POST http://localhost:8080/users
+Content-Type: application/json
+Accept: application/json
+
+{
+  "firstName": "Romino",
+  "lastName": "Mojo",
+  "email": "r.mojzis@grunt.sk"
+}
+
+
+
+
+
+### POST CAR
+POST http://localhost:8080/cars
+Content-Type: application/json
+Accept: application/json
+
+{
+  "brand": "Dacia",
+  "model": "Mojo",
+  "colour": "blue",
+  "vrp": "BA4546421",
+  "owner": 2,
+  "type": 2
+}
+
+
+### GET RESERVATIONS
+GET http://localhost:8080/reservations
+Accept: application/json
+
+
+### POST RESERVATION
+POST http://localhost:8080/reservations
+Content-Type: application/json
+Accept: application/json
+
+
+{
+  "car": 1,
+  "spot": 2
+}
+
+### POST CARTYPE
+POST http://localhost:8080/cartypes
+Content-Type: application/json
+Accept: application/json
+
+{
+  "name": "LPG"
+}
