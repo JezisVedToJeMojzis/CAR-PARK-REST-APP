@@ -60,27 +60,27 @@ the customer's cars must also be deleted. If an entity is deleted, all its assoc
 
 ### Customer (user)
 
-| Metóda | Url         | Parametre                                        | Kód pre úspešnú odpoveď | Objekt dopytu | Objekt odpovede   |
-|--------|-------------|--------------------------------------------------|-------------------------|---------------|-------------------|
-| GET    | /users      | **email**: String (email používateľa; nepovinné) | 200                     |               | Array\<Zákazník\> |
-| GET    | /users/{id} |                                                  | 200                     |               | Zákazník          |
-| POST   | /users      |                                                  | 201                     | Zákazník      | Zákazník          |
-| PUT    | /users/{id} |                                                  | 200                     | Zákazník      | Zákazník          |
-| DELETE | /users/{id} |                                                  | 204                     |               |                   |
+| Method | Url         | Parameters                                        | Code for successful response | Object query  | Object response   |
+|--------|-------------|--------------------------------------------------|-------------------------------|---------------|-------------------|
+| GET    | /users      | **email**: String (email)                        | 200                           |               | Array\<User\>     |
+| GET    | /users/{id} |                                                  | 200                           |               | User              |
+| POST   | /users      |                                                  | 201                           | User          | User              |
+| PUT    | /users/{id} |                                                  | 200                           | User          | User              |
+| DELETE | /users/{id} |                                                  | 204                           |               |                   |
 
 ### Reservation
 
-| Metóda | Url                    | Parametre                                                                                                                                                                                                      | Kód pre úspešnú odpoveď | Objekt dopytu | Objekt odpovede     |
-|--------|------------------------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|-------------------------|---------------|---------------------|
-| GET    | /reservations          | **user**: Long (id používateľa; nepovinné) <br/> **spot**: Long (id parkovacieho miesta; povinné iba v kombinácií s 'date') <br/> **date**: Date (dátum; format yyyy-MM-dd; povinné iba v kombinácií s 'spot') | 200                     |               | Array\<Rezervácia\> |
-| GET    | /reservations/{id}     |                                                                                                                                                                                                                | 200                     |               | Rezervácia          |
-| POST   | /reservations/{id}/end |                                                                                                                                                                                                                | 200                     | Prázdny       | Rezervácia          |
-| POST   | /reservations          |                                                                                                                                                                                                                | 201                     | Rezervácia    | Rezervácia          |
-| PUT    | /reservations/{id}     |                                                                                                                                                                                                                | 200                     | Rezervácia    | Rezervácia          |
+| Method | Url                    | Parameters                                                                                                                                                                                                     | Code for successful response | Object query    | Object response        |
+|--------|------------------------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|------------------------------|---------------|---------------------|
+| GET    | /reservations          | **user**: Long (id user) <br/> **spot**: Long (id parking spot) <br/> **date**: Date (date; format yyyy-MM-dd    | 200                    |               | Array\<Reservation\> |
+| GET    | /reservations/{id}     |                                                                                                                                                                                                                | 200                          |               | Reservation         |
+| POST   | /reservations/{id}/end |                                                                                                                                                                                                                | 200                          | Empty         | Reservation         |
+| POST   | /reservations          |                                                                                                                                                                                                                | 201                          | Reservation   | Reservation         |
+| PUT    | /reservations/{id}     |                                                                                                                                                                                                                | 200                          | Reservation   | Reservation         |
 
 ### Type of car
 
-| Metóda | Url            | Parameters                                    | Code for successful response | Query object  | Response object   |
+| Method | Url            | Parameters                                    | Code for successful response | Query object  | Response object   |
 |--------|----------------|-----------------------------------------------|------------------------------|---------------|-------------------|
 | GET    | /cartypes      | **name**: String                              | 200                          |               | Array\<Car type\> |
 | GET    | /cartypes/{id} |                                               | 200                          |               | Car type          |
