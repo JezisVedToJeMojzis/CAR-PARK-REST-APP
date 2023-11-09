@@ -16,7 +16,7 @@ of active reservations and must also include the possibility of checking the occ
 When deleting a car park, all its floors and parking spots must also be deleted. Same as deleted
 the customer's cars must also be deleted. If an entity is deleted, all its associations must be reset.
 
-### Car park
+### Car park (parking garage)
 
 ```
 | Method | Url | Parameters | Code for successful response | Query object | Response object |
@@ -41,7 +41,7 @@ the customer's cars must also be deleted. If an entity is deleted, all its assoc
 | DELETE | /carparks/{id}/floors/{identifier} | 204 | | | |
 ```
 
-### Parking spot
+### Parking spot (place)
 
 ```
 | Method | Url | Parameters | Code for successful response | Query object | Response object |
@@ -51,6 +51,41 @@ the customer's cars must also be deleted. If an entity is deleted, all its assoc
 | GET | /parkingspots/{id} | | 200 | | Parking place |
 | POST | /carparks/{id}/floors/{identifier}/spots | | 201 | Parking place | Parking place |
 | PUT | /parkingspots/{id} | | 200 | Parking place
+```
+### Car
+
+```
+| Method | Url | Parameters | Code for successful response | Query object | Response object |
+|--------|------------|------------------------ -------------------------------------------------- -------------|--------------------------|--------- -----|-----------------|
+| GET | /cars | **user**: Long (Id of car owner; optional) <br/> **vrp**: String (ECV of car; optional) | 200 | | Array\<Auto\> |
+| GET | /cars/{id} | | 200 | | Auto |
+| POST | /cars | | 201 | Auto | Auto |
+| PUT | /cars/{id} | | 200 | Auto | Auto |
+| DELETE | /cars/{id} | | 204 | | |
+```
+
+### Customer (user)
+
+```
+| Method | Url | Parameters | Code for successful response | Query object | Response object |
+|--------|------------|------------------------- -----------------------|------------------------ |---------------|-------------------|
+| GET | /users | **email**: String (user's email; optional) | 200 | | Array\<Customer\> |
+| GET | /users/{id} | | 200 | | Customer |
+| POST | /users | | 201 | Customer | Customer |
+| PUT | /users/{id} | | 200 | Customer | Customer |
+| DELETE | /users/{id} | | 204 | | |
+```
+
+### Reservation
+
+```
+| Method | Url | Parameters | Code for successful response | Query object | Response object |
+|--------|------------------------|------------- -------------------------------------------------- -------------------------------------------------- -------------------------------------------------- -----------------------------------------|------ -------------------|---------------|------------- -------|
+| GET | /reservations | **user**: Long (user id; optional) <br/> **spot**: Long (parking spot id; mandatory only in combination with 'date') <br/> **date**: Date ( date; format yyyy-MM-dd; mandatory only in combination with 'spot') | 200 | | Array\<Reservation\> |
+| GET | /reservations/{id} | | 200 | | Reservation |
+| POST | /reservations/{id}/end | | 200 | Empty | Reservation |
+| POST | /reservations | | 201 | Reservation | Reservation |
+| PUT | /reservations/{id} | | 200 | Reservation | Reservation |
 ```
 
 ## Objects
