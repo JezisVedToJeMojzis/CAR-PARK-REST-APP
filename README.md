@@ -18,7 +18,7 @@ the customer's cars must also be deleted. If an entity is deleted, all its assoc
 
 ### Car park (parking garage)
 
-```
+
 | Method | Url | Parameters | Code for successful response | Query object | Response object |
 |--------|----------------|----------------------- --------------------------------|----------------- --------|--------------|-----------------------|
 | GET | /carparks | **name**: String (parking house name; optional) | 200 | | Array\<Parking house\> |
@@ -26,7 +26,7 @@ the customer's cars must also be deleted. If an entity is deleted, all its assoc
 | POST | /carparks | | 201 | Parking garage | Parking garage |
 | PUT | /carparks/{id} | | 200 | Parking garage | Parking garage |
 | DELETE | /carparks/{id} | | 204 | | |
-```
+
 
 ### Car park floor
 
