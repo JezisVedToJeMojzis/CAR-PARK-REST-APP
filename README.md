@@ -105,7 +105,7 @@ format **yyyy-MM-dd**, i.e. according to the ISO-8601 standard.
     "address": "string",
     "prices": number
     "floors" ?: [
-        $ref: "Poschodie"
+        $ref: "Floor"
     ]
 }
 ```
@@ -118,7 +118,7 @@ format **yyyy-MM-dd**, i.e. according to the ISO-8601 standard.
     "identifier": "string",
     "carPark" ?: int64,
     "spots" ?: [
-        $ref: "Parkovacie miesto"
+        $ref: "Parking spot"
     ]
 }
 ```
@@ -131,10 +131,10 @@ format **yyyy-MM-dd**, i.e. according to the ISO-8601 standard.
     "identifier": "string",
     "carParkFloor": "string",
     "carPark" ?: int64,
-    "type": $ref: "Typ auta",
+    "type": $ref: "Car type",
     "free" ?: boolean,
     "reservations" ?: [
-        $ref: "Rezervácia"
+        $ref: "Reservation"
     ]
 }
 ```
@@ -148,10 +148,10 @@ format **yyyy-MM-dd**, i.e. according to the ISO-8601 standard.
     "model": "string",
     "vrp": "string",
     "colour": "string",
-    "type": $ref: "Typ auta",
-    "owner": $ref: "Zákazník",
+    "type": $ref: "Car Type",
+    "owner": $ref: "User",
     "reservations" ?: [
-        $ref: "Rezervácia"
+        $ref: "Reservation"
     ]
 }
 ```
@@ -165,10 +165,7 @@ format **yyyy-MM-dd**, i.e. according to the ISO-8601 standard.
     "lastName": "string",
     "email": "string",
     "cars" ?: [
-        $ref: "Auto"
-    ],
-    "coupons" ?: [
-        $ref: "Zľavový kupón"
+        $ref: "Car"
     ]
 }
 ```
@@ -181,9 +178,8 @@ format **yyyy-MM-dd**, i.e. according to the ISO-8601 standard.
     "start": Date(yyyy-MM-dd),
     "end" ?: Date(yyyy-MM-dd),
     "prices" ?: number,
-    "car": $ref: "Auto",
-    "spot": $ref: "Parkovacie miesto",
-    "coupon" ?: $ref: "Zľavový kupón"
+    "car": $ref: "Car",
+    "spot": $ref: "Parking spot",
 }
 ```
 
