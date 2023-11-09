@@ -18,35 +18,35 @@ the customer's cars must also be deleted. If an entity is deleted, all its assoc
 
 ### Car park (parking garage)
 
-| Metóda | Url            | Parametre                                             | Kód pre úspešnú odpoveď | Objekt dopytu | Objekt odpovede        |
-|--------|----------------|-------------------------------------------------------|-------------------------|---------------|------------------------|
-| GET    | /carparks      | **name**: String (názov parkovacieho domu; nepovinný) | 200                     |               | Array\<Parkovací dom\> |
-| GET    | /carparks/{id} |                                                       | 200                     |               | Parkovací dom          |
-| POST   | /carparks      |                                                       | 201                     | Parkovací dom | Parkovací dom          |
-| PUT    | /carparks/{id} |                                                       | 200                     | Parkovací dom | Parkovací dom          |
-| DELETE | /carparks/{id} |                                                       | 204                     |               |                        |
+| Method | Url            | Parameters                                            | Code for successful response | Query object  | Object response        |
+|--------|----------------|-------------------------------------------------------|------------------------------|---------------|------------------------|
+| GET    | /carparks      | **name**: String                                      | 200                          |               | Array\<Car park\>      |
+| GET    | /carparks/{id} |                                                       | 200                          |               | Car park               |
+| POST   | /carparks      |                                                       | 201                          | Car park      | Car park               |
+| PUT    | /carparks/{id} |                                                       | 200                          | Car park      | Car park               |
+| DELETE | /carparks/{id} |                                                       | 204                          |               |                        |
 
 ### Car park floor
 
-| Metóda | Url                                | Kód pre úspešnú odpoveď | Objekt dopytu | Objekt odpovede    | Poznámka                                                  |
-|--------|------------------------------------|-------------------------|---------------|--------------------|-----------------------------------------------------------|
-| GET    | /carparks/{id}/floors              | 200                     |               | Array\<Poschodie\> |                                                           |
-| GET    | /carparks/{id}/floors/{identifier} | 200                     |               | Poschodie          | Implementuj ak má Poschodie kompozitný primárny kľúč      |
-| GET    | /carparkfloors/{id}                | 200                     |               | Poschodie          | Implementuj ak má Poschodie auto-generovaný primárny kľúč |
-| POST   | /carparks/{id}/floors              | 201                     | Poschodie     | Poschodie          |                                                           |
-| PUT    | /carparks/{id}/floors/{identifier} | 200                     | Poschodie     | Poschodie          |                                                           |
-| DELETE | /carparks/{id}/floors/{identifier} | 204                     |               |                    |                                                           |
+| Method | Url                                | Code for successful response | Object query  | Object response    | Note                                                      |
+|--------|------------------------------------|------------------------------|---------------|--------------------|-----------------------------------------------------------|
+| GET    | /carparks/{id}/floors              | 200                          |               | Array\<Floor\>     |                                                           |
+| GET    | /carparks/{id}/floors/{identifier} | 200                          |               | Floor              | Floor has composite primary key                           |
+| GET    | /carparkfloors/{id}                | 200                          |               | Floor              | Floor has  auto-generated primary key                     |
+| POST   | /carparks/{id}/floors              | 201                          | Floor         | Floor              |                                                           |
+| PUT    | /carparks/{id}/floors/{identifier} | 200                          | Floor         | Floor              |                                                           |
+| DELETE | /carparks/{id}/floors/{identifier} | 204                          |               |                    |                                                           |
 
 ### Car park spot (place)
 
-| Metóda | Url                                      | Parametre                                                                       | Kód pre úspešnú odpoveď | Objekt dopytu     | Objekt odpovede            |
-|--------|------------------------------------------|---------------------------------------------------------------------------------|-------------------------|-------------------|----------------------------|
-| GET    | /carparks/{id}/spots                     | **free**: Boolean (true pre voľné miesta, false pre obsadené miesta; nepovinné) | 200                     |                   | Array\<Parkovacie miesto\> |
-| GET    | /carparks/{id}/floors/{identifier}/spots |                                                                                 | 200                     |                   | Array\<Parkovacie miesto\> |
-| GET    | /parkingspots/{id}                       |                                                                                 | 200                     |                   | Parkovacie miesto          |
-| POST   | /carparks/{id}/floors/{identifier}/spots |                                                                                 | 201                     | Parkovacie miesto | Parkovacie miesto          |
-| PUT    | /parkingspots/{id}                       |                                                                                 | 200                     | Parkovacie miesto | Parkovacie miesto          |
-| DELETE | /parkingspots/{id}                       |                                                                                 | 204                     |                   |                            |
+| Method | Url                                      | Parameters                                                                      | Code for successful response | Objekt dopytu     | Objekt odpovede            |
+|--------|------------------------------------------|---------------------------------------------------------------------------------|------------------------------|-------------------|-------------------------------|
+| GET    | /carparks/{id}/spots                     | **free**: Boolean (true for free spots, false for occupied spots)               | 200                          |                   | Array\<Parking spot     \> |
+| GET    | /carparks/{id}/floors/{identifier}/spots |                                                                                 | 200                          |                   | Array\<Parking spot\>      |
+| GET    | /parkingspots/{id}                       |                                                                                 | 200                          |                   | Parking spot               |
+| POST   | /carparks/{id}/floors/{identifier}/spots |                                                                                 | 201                          | Parking spot      | Parking spot               |
+| PUT    | /parkingspots/{id}                       |                                                                                 | 200                          | Parking spot      | Parking spot               |
+| DELETE | /parkingspots/{id}                       |                                                                                 | 204                          |                   |                               |
 
 ### Car
 
