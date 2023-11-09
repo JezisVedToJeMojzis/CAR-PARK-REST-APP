@@ -88,6 +88,17 @@ the customer's cars must also be deleted. If an entity is deleted, all its assoc
 | PUT | /reservations/{id} | | 200 | Reservation | Reservation |
 ```
 
+### Car type
+
+```
+| Method | Url | Parameters | Code for successful response | Query object | Response object |
+|--------|----------------|----------------------- -----------------------|------------------------ |---------------|-------------------|
+| GET | /cartypes | **name**: String (name of car type; optional) | 200 | | Array\<Car Type\> |
+| GET | /cartypes/{id} | | 200 | | Car type |
+| POST | /cartypes | | 201 | Car type | Car type |
+| DELETE | /cartypes/{id} | | 204 | | |
+```
+
 ## Objects
 
 This section lists the minimum object structures used in the services defined above. The **'int64'** data type represents the type
