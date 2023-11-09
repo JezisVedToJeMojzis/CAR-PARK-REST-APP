@@ -18,86 +18,76 @@ the customer's cars must also be deleted. If an entity is deleted, all its assoc
 
 ### Car park (parking garage)
 
-
-| Method | Url | Parameters | Code for successful response | Query object | Response object |
-|--------|----------------|----------------------- --------------------------------|----------------- --------|--------------|-----------------------|
-| GET | /carparks | **name**: String (parking house name; optional) | 200 | | Array\<Parking house\> |
-| GET | /carparks/{id} | | 200 | | Parking garage |
-| POST | /carparks | | 201 | Parking garage | Parking garage |
-| PUT | /carparks/{id} | | 200 | Parking garage | Parking garage |
-| DELETE | /carparks/{id} | | 204 | | |
-
+| Metóda | Url            | Parametre                                             | Kód pre úspešnú odpoveď | Objekt dopytu | Objekt odpovede        |
+|--------|----------------|-------------------------------------------------------|-------------------------|---------------|------------------------|
+| GET    | /carparks      | **name**: String (názov parkovacieho domu; nepovinný) | 200                     |               | Array\<Parkovací dom\> |
+| GET    | /carparks/{id} |                                                       | 200                     |               | Parkovací dom          |
+| POST   | /carparks      |                                                       | 201                     | Parkovací dom | Parkovací dom          |
+| PUT    | /carparks/{id} |                                                       | 200                     | Parkovací dom | Parkovací dom          |
+| DELETE | /carparks/{id} |                                                       | 204                     |               |                        |
 
 ### Car park floor
 
-```
-| Method | Url | Code for successful response | Query object | Response object | Note |
-|--------|---------------------------------------|--- ----------------------|--------------|----------- ---------|------------------------------------------------ -------------------|
-| GET | /carparks/{id}/floors | 200 | | Array\<Floor\> | |
-| GET | /carparks/{id}/floors/{identifier} | 200 | | Floor | Implement if the Floor has a composite primary key |
-| GET | /carparkfloors/{id} | 200 | | Floor | Implement if the Floor has an auto-generated primary key |
-| POST | /carparks/{id}/floors | 201 | Floor | Floor | |
-| PUT | /carparks/{id}/floors/{identifier} | 200 | Floor | Floor | |
-| DELETE | /carparks/{id}/floors/{identifier} | 204 | | | |
-```
+| Metóda | Url                                | Kód pre úspešnú odpoveď | Objekt dopytu | Objekt odpovede    | Poznámka                                                  |
+|--------|------------------------------------|-------------------------|---------------|--------------------|-----------------------------------------------------------|
+| GET    | /carparks/{id}/floors              | 200                     |               | Array\<Poschodie\> |                                                           |
+| GET    | /carparks/{id}/floors/{identifier} | 200                     |               | Poschodie          | Implementuj ak má Poschodie kompozitný primárny kľúč      |
+| GET    | /carparkfloors/{id}                | 200                     |               | Poschodie          | Implementuj ak má Poschodie auto-generovaný primárny kľúč |
+| POST   | /carparks/{id}/floors              | 201                     | Poschodie     | Poschodie          |                                                           |
+| PUT    | /carparks/{id}/floors/{identifier} | 200                     | Poschodie     | Poschodie          |                                                           |
+| DELETE | /carparks/{id}/floors/{identifier} | 204                     |               |                    |                                                           |
 
-### Parking spot (place)
+### Car park spot (place)
 
-```
-| Method | Url | Parameters | Code for successful response | Query object | Response object |
-|--------|------------------------------------------------ --|------------------------------------------------ -----------------------------------|-------------- ----------|-------------------|------------ ---------|
-| GET | /carparks/{id}/spots | **free**: Boolean (true for free seats, false for occupied seats; optional) | 200 | | Array\<Parking space\> |
-| GET | /carparks/{id}/floors/{identifier}/spots | | 200 | | Array\<Parking space\> |
-| GET | /parkingspots/{id} | | 200 | | Parking place |
-| POST | /carparks/{id}/floors/{identifier}/spots | | 201 | Parking place | Parking place |
-| PUT | /parkingspots/{id} | | 200 | Parking place
-```
+| Metóda | Url                                      | Parametre                                                                       | Kód pre úspešnú odpoveď | Objekt dopytu     | Objekt odpovede            |
+|--------|------------------------------------------|---------------------------------------------------------------------------------|-------------------------|-------------------|----------------------------|
+| GET    | /carparks/{id}/spots                     | **free**: Boolean (true pre voľné miesta, false pre obsadené miesta; nepovinné) | 200                     |                   | Array\<Parkovacie miesto\> |
+| GET    | /carparks/{id}/floors/{identifier}/spots |                                                                                 | 200                     |                   | Array\<Parkovacie miesto\> |
+| GET    | /parkingspots/{id}                       |                                                                                 | 200                     |                   | Parkovacie miesto          |
+| POST   | /carparks/{id}/floors/{identifier}/spots |                                                                                 | 201                     | Parkovacie miesto | Parkovacie miesto          |
+| PUT    | /parkingspots/{id}                       |                                                                                 | 200                     | Parkovacie miesto | Parkovacie miesto          |
+| DELETE | /parkingspots/{id}                       |                                                                                 | 204                     |                   |                            |
+
 ### Car
 
-```
-| Method | Url | Parameters | Code for successful response | Query object | Response object |
-|--------|------------|------------------------ -------------------------------------------------- -------------|--------------------------|--------- -----|-----------------|
-| GET | /cars | **user**: Long (Id of car owner; optional) <br/> **vrp**: String (ECV of car; optional) | 200 | | Array\<Auto\> |
-| GET | /cars/{id} | | 200 | | Auto |
-| POST | /cars | | 201 | Auto | Auto |
-| PUT | /cars/{id} | | 200 | Auto | Auto |
-| DELETE | /cars/{id} | | 204 | | |
-```
+| Metóda | Url        | Parametre                                                                                | Kód pre úspešnú odpoveď | Objekt dopytu | Objekt odpovede |
+|--------|------------|------------------------------------------------------------------------------------------|-------------------------|---------------|-----------------|
+| GET    | /cars      | **user**: Long (Id majiteľa auta; nepovinné) <br/> **vrp**: String (EČV auta; nepovinné) | 200                     |               | Array\<Auto\>   |
+| GET    | /cars/{id} |                                                                                          | 200                     |               | Auto            |
+| POST   | /cars      |                                                                                          | 201                     | Auto          | Auto            |
+| PUT    | /cars/{id} |                                                                                          | 200                     | Auto          | Auto            |
+| DELETE | /cars/{id} |                                                                                          | 204                     |               |                 |
 
 ### Customer (user)
 
-```
-| Method | Url | Parameters | Code for successful response | Query object | Response object |
-|--------|------------|------------------------- -----------------------|------------------------ |---------------|-------------------|
-| GET | /users | **email**: String (user's email; optional) | 200 | | Array\<Customer\> |
-| GET | /users/{id} | | 200 | | Customer |
-| POST | /users | | 201 | Customer | Customer |
-| PUT | /users/{id} | | 200 | Customer | Customer |
-| DELETE | /users/{id} | | 204 | | |
-```
+| Metóda | Url         | Parametre                                        | Kód pre úspešnú odpoveď | Objekt dopytu | Objekt odpovede   |
+|--------|-------------|--------------------------------------------------|-------------------------|---------------|-------------------|
+| GET    | /users      | **email**: String (email používateľa; nepovinné) | 200                     |               | Array\<Zákazník\> |
+| GET    | /users/{id} |                                                  | 200                     |               | Zákazník          |
+| POST   | /users      |                                                  | 201                     | Zákazník      | Zákazník          |
+| PUT    | /users/{id} |                                                  | 200                     | Zákazník      | Zákazník          |
+| DELETE | /users/{id} |                                                  | 204                     |               |                   |
 
 ### Reservation
 
-```
-| Method | Url | Parameters | Code for successful response | Query object | Response object |
-|--------|------------------------|------------- -------------------------------------------------- -------------------------------------------------- -------------------------------------------------- -----------------------------------------|------ -------------------|---------------|------------- -------|
-| GET | /reservations | **user**: Long (user id; optional) <br/> **spot**: Long (parking spot id; mandatory only in combination with 'date') <br/> **date**: Date ( date; format yyyy-MM-dd; mandatory only in combination with 'spot') | 200 | | Array\<Reservation\> |
-| GET | /reservations/{id} | | 200 | | Reservation |
-| POST | /reservations/{id}/end | | 200 | Empty | Reservation |
-| POST | /reservations | | 201 | Reservation | Reservation |
-| PUT | /reservations/{id} | | 200 | Reservation | Reservation |
-```
+| Metóda | Url                    | Parametre                                                                                                                                                                                                      | Kód pre úspešnú odpoveď | Objekt dopytu | Objekt odpovede     |
+|--------|------------------------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|-------------------------|---------------|---------------------|
+| GET    | /reservations          | **user**: Long (id používateľa; nepovinné) <br/> **spot**: Long (id parkovacieho miesta; povinné iba v kombinácií s 'date') <br/> **date**: Date (dátum; format yyyy-MM-dd; povinné iba v kombinácií s 'spot') | 200                     |               | Array\<Rezervácia\> |
+| GET    | /reservations/{id}     |                                                                                                                                                                                                                | 200                     |               | Rezervácia          |
+| POST   | /reservations/{id}/end |                                                                                                                                                                                                                | 200                     | Prázdny       | Rezervácia          |
+| POST   | /reservations          |                                                                                                                                                                                                                | 201                     | Rezervácia    | Rezervácia          |
+| PUT    | /reservations/{id}     |                                                                                                                                                                                                                | 200                     | Rezervácia    | Rezervácia          |
 
-### Car type
+### Type of car
 
-```
-| Method | Url | Parameters | Code for successful response | Query object | Response object |
-|--------|----------------|----------------------- -----------------------|------------------------ |---------------|-------------------|
-| GET | /cartypes | **name**: String (name of car type; optional) | 200 | | Array\<Car Type\> |
-| GET | /cartypes/{id} | | 200 | | Car type |
-| POST | /cartypes | | 201 | Car type | Car type |
-| DELETE | /cartypes/{id} | | 204 | | |
-```
+| Metóda | Url            | Parameters                                    | Code for successful response | Query object  | Response object   |
+|--------|----------------|-----------------------------------------------|------------------------------|---------------|-------------------|
+| GET    | /cartypes      | **name**: String                              | 200                          |               | Array\<Car type\> |
+| GET    | /cartypes/{id} |                                               | 200                          |               | Car type          |
+| POST   | /cartypes      |                                               | 201                          | Typ auta      | Car type          |
+| DELETE | /cartypes/{id} |                                               | 204                          |               |                   |
+
+
 
 ## Objects
 
