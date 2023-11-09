@@ -39,7 +39,7 @@ the customer's cars must also be deleted. If an entity is deleted, all its assoc
 
 ### Car park spot (place)
 
-| Method | Url                                      | Parameters                                                                      | Code for successful response | Objekt dopytu     | Objekt odpovede            |
+| Method | Url                                      | Parameters                                                                      | Code for successful response | Object query     | Object response             |
 |--------|------------------------------------------|---------------------------------------------------------------------------------|------------------------------|-------------------|-------------------------------|
 | GET    | /carparks/{id}/spots                     | **free**: Boolean (true for free spots, false for occupied spots)               | 200                          |                   | Array\<Parking spot     \> |
 | GET    | /carparks/{id}/floors/{identifier}/spots |                                                                                 | 200                          |                   | Array\<Parking spot\>      |
@@ -50,13 +50,13 @@ the customer's cars must also be deleted. If an entity is deleted, all its assoc
 
 ### Car
 
-| Metóda | Url        | Parametre                                                                                | Kód pre úspešnú odpoveď | Objekt dopytu | Objekt odpovede |
+| Method | Url        | Parameters                                                                               | Code for successful response | Object query | Object response |
 |--------|------------|------------------------------------------------------------------------------------------|-------------------------|---------------|-----------------|
-| GET    | /cars      | **user**: Long (Id majiteľa auta; nepovinné) <br/> **vrp**: String (EČV auta; nepovinné) | 200                     |               | Array\<Auto\>   |
-| GET    | /cars/{id} |                                                                                          | 200                     |               | Auto            |
-| POST   | /cars      |                                                                                          | 201                     | Auto          | Auto            |
-| PUT    | /cars/{id} |                                                                                          | 200                     | Auto          | Auto            |
-| DELETE | /cars/{id} |                                                                                          | 204                     |               |                 |
+| GET    | /cars      | **user**: Long (Id user) <br/> **vrp**: String (License car) | 200                       |               | Array\<Car\>   |
+| GET    | /cars/{id} |                                                                                          | 200                     |               | Car             |
+| POST   | /cars      |                                                                                          | 201                     | Car          | Car            |
+| PUT    | /cars/{id} |                                                                                          | 200                     | Car          | Car            |
+| DELETE | /cars/{id} |                                                                                          | 204                     |               |                |
 
 ### Customer (user)
 
