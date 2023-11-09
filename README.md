@@ -1,170 +1,60 @@
-# B-VSA LS 21/22 - Semestrálny projekt 2
+# Car park REST application
 
 ![Java 1.8](https://img.shields.io/badge/Java-1.8-blue)
 ![EclipseLink 2.7.10](https://img.shields.io/badge/EclipseLink-2.7.10-green)
 [![Public domain](https://img.shields.io/badge/License-Unlicense-lightgray)](https://unlicense.org)
 
-Cieľom 2. semestrálneho projektu je naprogramovať webovú aplikáciu publikujúc RESTful API podľa definovanej
-špecifikácie. Projekt má nadväzovať na semestrálny projekt 1, v ktorom ste mali implementovať spojenie s SQL databázou s
-použitím technológie JPA.
+## Functionality
 
-V tomto projekte vychádzajte z riešenia pre 1. semestrálny projekt. Zachovajte asociácie a objekty definované v 1.
-projekte. Nakoľko predmetom tohto zadania je implementácia REST webových služieb, môžete upraviť riešenie z
-predchádzajúceho zadania podľa svojho najlepšieho vedomia a svedomia, tak aby splnilo toto zadanie.
+The application must provide CRUD operations via published REST services. It must also provide a booking service
+parking spot to the user for his own car. A reservation can only be made for a specific time. After calling
+services for the termination of the reservation, the termination time is entered and the total price of the reservation is calculated.
 
-## Funkcionalita
+The application must allow the user to display a list of reservations for a specific day and parking spot, a list of his
+of active reservations and must also include the possibility of checking the occupancy of the car park.
 
-Aplikácia musí zabezpečiť CRUD operácie cez publikované REST služby. Taktiež musí poskytovať službu pre rezervovanie
-parkovacieho miesta používateľom pre vlastné auto. Rezervácia môže byť vytvorené iba na špecifický čas. Po zavolaním
-služby pre ukončenie rezervácie sa zapíše čas ukončenia a vypočíta celková cena rezervácie.
+When deleting a car park, all its floors and parking spots must also be deleted. Same as deleted
+the customer's cars must also be deleted. If an entity is deleted, all its associations must be reset.
 
-Aplikácia musí umožniť používateľovi zobrazenie zoznamu rezervácií za špecifický deň a parkovacie miesto, zoznam svojich
-aktívnych rezervácií a taktiež musí obsahovať možnosť kontroly obsadenosti parkovacieho domu.
+### Car park
 
-Pri vymazaní parkovacieho domu musia byť vymazané aj všetky jeho poschodia aj parkovacie miesta. Rovnako ak je vymazaný
-zákazník musia byť vymazané aj jeho autá. Ak je vymazaná entita všetky jeho asociácie musia byť vynulované.
+| Method | Url | Parameters | Code for successful response | Query object | Response object |
+|--------|----------------|----------------------- --------------------------------|----------------- --------|--------------|-----------------------|
+| GET | /carparks | **name**: String (parking house name; optional) | 200 | | Array\<Parking house\> |
+| GET | /carparks/{id} | | 200 | | Parking garage |
+| POST | /carparks | | 201 | Parking garage | Parking garage |
+| PUT | /carparks/{id} | | 200 | Parking garage | Parking garage |
+| DELETE | /carparks/{id} | | 204 | | |
 
-## Špecifikácia
+### Car park floor
 
-Pri implementácií použite protokol HTTP/1.1, ako formát prenášaných objektov použite **application/json** s UTF-8
-kódovaním. Pri chybových stavoch môžete vrátiť prázdnu odpoveď. Kód odpovede nastavte tak, aby najlepšie vystihla povahu
-odpovede [https://www.restapitutorial.com/httpstatuscodes.html](https://www.restapitutorial.com/httpstatuscodes.html).
+| Method | Url | Code for successful response | Query object | Response object | Note |
+|--------|---------------------------------------|--- ----------------------|--------------|----------- ---------|------------------------------------------------ -------------------|
+| GET | /carparks/{id}/floors | 200 | | Array\<Floor\> | |
+| GET | /carparks/{id}/floors/{identifier} | 200 | | Floor | Implement if the Floor has a composite primary key |
+| GET | /carparkfloors/{id} | 200 | | Floor | Implement if the Floor has an auto-generated primary key |
+| POST | /carparks/{id}/floors | 201 | Floor | Floor | |
+| PUT | /carparks/{id}/floors/{identifier} | 200 | Floor | Floor | |
+| DELETE | /carparks/{id}/floors/{identifier} | 204 | | | |
 
-Pre identifikáciu používateľa požiadavky použite autentifikačný mechanizmu **Basic access
-authentication** [https://en.wikipedia.org/wiki/Basic_access_authentication](https://en.wikipedia.org/wiki/Basic_access_authentication)
-. Prihlasovacie údaje použité nasledovné:
+### Parking spot
 
-- prihlasovacie meno = používateľov email
-- heslo = id v databáze
+| Method | Url | Parameters | Code for successful response | Query object | Response object |
+|--------|------------------------------------------------ --|------------------------------------------------ -----------------------------------|-------------- ----------|-------------------|------------ ---------|
+| GET | /carparks/{id}/spots | **free**: Boolean (true for free seats, false for occupied seats; optional) | 200 | | Array\<Parking space\> |
+| GET | /carparks/{id}/floors/{identifier}/spots | | 200 | | Array\<Parking space\> |
+| GET | /parkingspots/{id} | | 200 | | Parking place |
+| POST | /carparks/{id}/floors/{identifier}/spots | | 201 | Parking place | Parking place |
+| PUT | /parkingspots/{id} | | 200 | Parking place
 
-REST služby implementujte ako bezstavové. **Nevytvárajte žiadnu** používateľskú **reláciu** (Session), nevytvárajte žiadne
-autorizačné tokeny, či iné spôsoby relácie a udržiavania stavu používateľa. **Authorization HTTP hlavička musí byť**
-zaslaná
-s každým dopytom na služby.
+## Objects
 
-Aplikáciu **implementujte vo** frameworku **Jersey** ako tzv. **'standalone' webovú aplikáciu** (po vzore cvičení). Výstupom
-riešenia musí byť spustiteľný JAR subor. HTTP server aplikácie má počúvať **na porte 8080**. V rámci implementácie služieb,
-ktoré majú vrátiť kolekciu objektov nemusíte riešiť stránkovanie. **Pri štarte** aplikácie **vytvorte** jedného testovacieho
-**používateľa s emailom admin@vsa.sk**.
+This section lists the minimum object structures used in the services defined above. The **'int64'** data type represents the type
+**Java Long**. The 'number' data type can be any number type. An attribute assigned using the **'?:' symbol is optional**.
+An attribute with the value **'$ref: …' indicates** that the value is **of the type of another object** pointed to by the reference. All **dates** are in
+format **yyyy-MM-dd**, i.e. according to the ISO-8601 standard.
 
-V nasledujúcej sekcii je uvedená špecifikácia jednotlivých služieb pre REST resources. Štruktúra objektov uvedených pri
-službách je na konci tohto dokumentu. Parametre uvedené pri GET službách slúžia na dodatočné vyhľadanie REST resource-u.
-
-### Parkovací dom
-
-| Metóda | Url            | Parametre                                             | Kód pre úspešnú odpoveď | Objekt dopytu | Objekt odpovede        |
-|--------|----------------|-------------------------------------------------------|-------------------------|---------------|------------------------|
-| GET    | /carparks      | **name**: String (názov parkovacieho domu; nepovinný) | 200                     |               | Array\<Parkovací dom\> |
-| GET    | /carparks/{id} |                                                       | 200                     |               | Parkovací dom          |
-| POST   | /carparks      |                                                       | 201                     | Parkovací dom | Parkovací dom          |
-| PUT    | /carparks/{id} |                                                       | 200                     | Parkovací dom | Parkovací dom          |
-| DELETE | /carparks/{id} |                                                       | 204                     |               |                        |
-
-### Poschodie parkovacieho domu
-
-| Metóda | Url                                | Kód pre úspešnú odpoveď | Objekt dopytu | Objekt odpovede    | Poznámka                                                  |
-|--------|------------------------------------|-------------------------|---------------|--------------------|-----------------------------------------------------------|
-| GET    | /carparks/{id}/floors              | 200                     |               | Array\<Poschodie\> |                                                           |
-| GET    | /carparks/{id}/floors/{identifier} | 200                     |               | Poschodie          | Implementuj ak má Poschodie kompozitný primárny kľúč      |
-| GET    | /carparkfloors/{id}                | 200                     |               | Poschodie          | Implementuj ak má Poschodie auto-generovaný primárny kľúč |
-| POST   | /carparks/{id}/floors              | 201                     | Poschodie     | Poschodie          |                                                           |
-| PUT    | /carparks/{id}/floors/{identifier} | 200                     | Poschodie     | Poschodie          |                                                           |
-| DELETE | /carparks/{id}/floors/{identifier} | 204                     |               |                    |                                                           |
-
-### Parkovacie miesto
-
-| Metóda | Url                                      | Parametre                                                                       | Kód pre úspešnú odpoveď | Objekt dopytu     | Objekt odpovede            |
-|--------|------------------------------------------|---------------------------------------------------------------------------------|-------------------------|-------------------|----------------------------|
-| GET    | /carparks/{id}/spots                     | **free**: Boolean (true pre voľné miesta, false pre obsadené miesta; nepovinné) | 200                     |                   | Array\<Parkovacie miesto\> |
-| GET    | /carparks/{id}/floors/{identifier}/spots |                                                                                 | 200                     |                   | Array\<Parkovacie miesto\> |
-| GET    | /parkingspots/{id}                       |                                                                                 | 200                     |                   | Parkovacie miesto          |
-| POST   | /carparks/{id}/floors/{identifier}/spots |                                                                                 | 201                     | Parkovacie miesto | Parkovacie miesto          |
-| PUT    | /parkingspots/{id}                       |                                                                                 | 200                     | Parkovacie miesto | Parkovacie miesto          |
-| DELETE | /parkingspots/{id}                       |                                                                                 | 204                     |                   |                            |
-
-### Auto
-
-| Metóda | Url        | Parametre                                                                                | Kód pre úspešnú odpoveď | Objekt dopytu | Objekt odpovede |
-|--------|------------|------------------------------------------------------------------------------------------|-------------------------|---------------|-----------------|
-| GET    | /cars      | **user**: Long (Id majiteľa auta; nepovinné) <br/> **vrp**: String (EČV auta; nepovinné) | 200                     |               | Array\<Auto\>   |
-| GET    | /cars/{id} |                                                                                          | 200                     |               | Auto            |
-| POST   | /cars      |                                                                                          | 201                     | Auto          | Auto            |
-| PUT    | /cars/{id} |                                                                                          | 200                     | Auto          | Auto            |
-| DELETE | /cars/{id} |                                                                                          | 204                     |               |                 |
-
-### Zákazník
-
-| Metóda | Url         | Parametre                                        | Kód pre úspešnú odpoveď | Objekt dopytu | Objekt odpovede   |
-|--------|-------------|--------------------------------------------------|-------------------------|---------------|-------------------|
-| GET    | /users      | **email**: String (email používateľa; nepovinné) | 200                     |               | Array\<Zákazník\> |
-| GET    | /users/{id} |                                                  | 200                     |               | Zákazník          |
-| POST   | /users      |                                                  | 201                     | Zákazník      | Zákazník          |
-| PUT    | /users/{id} |                                                  | 200                     | Zákazník      | Zákazník          |
-| DELETE | /users/{id} |                                                  | 204                     |               |                   |
-
-### Rezervácia
-
-| Metóda | Url                    | Parametre                                                                                                                                                                                                      | Kód pre úspešnú odpoveď | Objekt dopytu | Objekt odpovede     |
-|--------|------------------------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|-------------------------|---------------|---------------------|
-| GET    | /reservations          | **user**: Long (id používateľa; nepovinné) <br/> **spot**: Long (id parkovacieho miesta; povinné iba v kombinácií s 'date') <br/> **date**: Date (dátum; format yyyy-MM-dd; povinné iba v kombinácií s 'spot') | 200                     |               | Array\<Rezervácia\> |
-| GET    | /reservations/{id}     |                                                                                                                                                                                                                | 200                     |               | Rezervácia          |
-| POST   | /reservations/{id}/end |                                                                                                                                                                                                                | 200                     | Prázdny       | Rezervácia          |
-| POST   | /reservations          |                                                                                                                                                                                                                | 201                     | Rezervácia    | Rezervácia          |
-| PUT    | /reservations/{id}     |                                                                                                                                                                                                                | 200                     | Rezervácia    | Rezervácia          |
-
-### Skupina A - Zľavový kupón
-
-| Metóda | Url                         | Parametre                                  | Kód pre úspešnú odpoveď | Objekt dopytu | Objekt odpovede        |
-|--------|-----------------------------|--------------------------------------------|-------------------------|---------------|------------------------|
-| GET    | /coupons                    | **user**: Long (id používateľa; nepovinné) | 200                     |               | Array\<Zľavový kupón\> |
-| GET    | /coupons/{id}               |                                            | 200                     |               | Zľavový kupón          |
-| POST   | /coupons/{id}/give/{userId} |                                            | 200                     | Prázdny       | Zľavový kupón          |
-| POST   | /coupons                    |                                            | 201                     | Zľavový kupón | Zľavový kupón          |
-| DELETE | /coupons/{id}               |                                            | 204                     |               |                        |
-
-### Skupina B - Typ auta
-
-| Metóda | Url            | Parametre                                     | Kód pre úspešnú odpoveď | Objekt dopytu | Objekt odpovede   |
-|--------|----------------|-----------------------------------------------|-------------------------|---------------|-------------------|
-| GET    | /cartypes      | **name**: String (názov typu auta; nepovinné) | 200                     |               | Array\<Typ auta\> |
-| GET    | /cartypes/{id} |                                               | 200                     |               | Typ auta          |
-| POST   | /cartypes      |                                               | 201                     | Typ auta      | Typ auta          |
-| DELETE | /cartypes/{id} |                                               | 204                     |               |                   |
-
-### Skupina C - Sviatok
-
-| Metóda | Url            | Parametre                                                   | Kód pre úspešnú odpoveď | Objekt dopytu | Objekt odpovede  |
-|--------|----------------|-------------------------------------------------------------|-------------------------|---------------|------------------|
-| GET    | /holidays      | **date**: Date(dátum sviatku; format yyyy-MM-dd; nepovinné) | 200                     |               | Array\<Sviatok\> |
-| POST   | /holidays      |                                                             | 201                     | Sviatok       | Sviatok          |
-| DELETE | /holidays/{id} |                                                             | 204                     |               |                  |
-
-## Hodnotenie
-
-Zadanie je hodnotené **20 bodmi**. Vypracovanie je nutné odovzdať **do 11.05.2022 23:59**.
-
-Zadanie si naklonujte z repozitára zadania. Svoje vypracovanie nahrajte do vášho repozitára pre toto zadanie pomocou
-programu Git (git commit + git push). Vypracovanie môžete "pusho-vať" priebežne. Do vytvoreného projektu nakopírujte
-riešenie z 1. semestrálneho projektu.
-
-Nakoľko v 1. zadaní boli update metódy nepovinné, rovnaké pravidlo bodovania (bonus body zo spoločného "poolu") platí aj
-pre PUT služby uvedené v špecifikácií, nakoľko nie každý má update metódy implementované.
-
-Hodnotiť sa bude iba master/main branch. Hodnotenie bude automatizované pomocou nástroja pre testovanie REST API (
-Postman a pod.) Kvôli testom a zrýchleniu opravovania je nutné dodržať pokyny a štruktúru projektu, ako je stanovené v
-zadaní! Iba kód poslednej verzie vypracovania (t.j. z posledného commitu) do termínu odovzdania sa berie do úvahy. Okrem
-testov sa bude kód a funkcionalita kontrolovať aj manuálne. Hodnotiť sa bude len kód, ktorý je predmetom tohto zadania,
-takže aj v prípadné chyby v JPA implementácií nebudú brané do úvahy. Hodnotiť sa budú iba skompilovateľné a spustiteľné
-riešenia.
-
-## Objekty
-
-V tejto sekcii sú uvedené minimálne štruktúry objektov použité vo vyššie definovaných službách. Dátový typ **'int64'** reprezentuje typ
-**Java Long**. Dátový typ 'number' môže byť akýkoľvek číselný typ. Atribút s priradením pomocou symbolu **'?:' je dobrovoľný**.
-Atribút s hodnotou **'$ref: …' označuje**, že hodnota je **typu iného objektu**, na ktorý ukazuje referencia. Všetky **dátumy** sú vo
-formáte **yyyy-MM-dd**, t.j. podľa štandardu ISO-8601.
-
-### Parkovací dom
+### Car park
 
 ```
 {
@@ -178,7 +68,7 @@ formáte **yyyy-MM-dd**, t.j. podľa štandardu ISO-8601.
 }
 ```
 
-### Poschodie
+### Car park floor
 
 ```
 {
@@ -191,7 +81,7 @@ formáte **yyyy-MM-dd**, t.j. podľa štandardu ISO-8601.
 }
 ```
 
-### Parkovacie miesto
+### Parking spot
 
 ```
 {
@@ -207,7 +97,7 @@ formáte **yyyy-MM-dd**, t.j. podľa štandardu ISO-8601.
 }
 ```
 
-### Auto
+### Car
 
 ```
 {
@@ -224,7 +114,7 @@ formáte **yyyy-MM-dd**, t.j. podľa štandardu ISO-8601.
 }
 ```
 
-### Zákazník
+### Customer
 
 ```
 {
@@ -241,7 +131,7 @@ formáte **yyyy-MM-dd**, t.j. podľa štandardu ISO-8601.
 }
 ```
 
-### Rezervácia
+### Reservation
 
 ```
 {
@@ -255,17 +145,8 @@ formáte **yyyy-MM-dd**, t.j. podľa štandardu ISO-8601.
 }
 ```
 
-### Skupina A - Zľavová kupón
 
-```
-{
-    "id" ?: int64,
-    "name": "string",
-    "discount": number
-}
-```
-
-### Skupina B - Typ auta
+### Type of car
 
 ```
 {
@@ -274,12 +155,3 @@ formáte **yyyy-MM-dd**, t.j. podľa štandardu ISO-8601.
 }
 ```
 
-### Skupina C - Sviatok
-
-```
-{
-    "id" ?: int64,
-    "name": "string",
-    "date": Date(yyyy-MM-dd)
-}
-```
