@@ -6,15 +6,15 @@
 
 ## Functionality
 
-The application must provide CRUD operations via published REST services. It must also provide a booking service
+The application provides CRUD operations via published REST services. It also provides a booking service
 parking spot to the user for his own car. A reservation can only be made for a specific time. After calling
 services for the termination of the reservation, the termination time is entered and the total price of the reservation is calculated.
 
-The application must allow the user to display a list of reservations for a specific day and parking spot, a list of his
-of active reservations and must also include the possibility of checking the occupancy of the car park.
+The application allows the user to display a list of reservations for a specific day and parking spot, a list of his
+of active reservations and also includes the possibility of checking the occupancy of the car park.
 
-When deleting a car park, all its floors and parking spots must also be deleted. Same as deleted
-the customer's cars must also be deleted. If an entity is deleted, all its associations must be reset.
+When deleting a car park, all its floors and parking spots are also deleted. 
+The customer's cars are also deleted. If an entity is deleted, all its associations will be reset.
 
 ### Car park (parking garage)
 
